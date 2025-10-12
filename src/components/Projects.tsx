@@ -22,14 +22,14 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-32 px-6 bg-gradient-to-b from-background to-secondary/30">
+    <section id="projects" className="py-20 px-4">
       <div className="container mx-auto max-w-6xl">
-        <div className="mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold mb-6">
-            Selected <span className="text-gradient">Work 20-24''</span>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Featured <span className="text-gradient">Projects</span>
           </h2>
-          <p className="text-xl text-foreground/70 max-w-2xl">
-            Creative masterpieces delivered in the last 8 years
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Innovative solutions that make a real-world impact
           </p>
         </div>
 

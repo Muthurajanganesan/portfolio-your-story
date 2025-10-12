@@ -1,20 +1,16 @@
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { GraduationCap, Target } from "lucide-react";
 
 const About = () => {
   return (
-    <section id="about" className="py-32 px-6">
+    <section id="about" className="py-20 px-4">
       <div className="container mx-auto max-w-6xl">
-        <div className="mb-16">
-          <Button variant="outline" size="lg" className="rounded-full mb-8">
-            About Me
-          </Button>
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 max-w-3xl">
-            Driven - And <span className="text-gradient">Adaptable</span>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            About <span className="text-gradient">Me</span>
           </h2>
-          <p className="text-xl text-foreground/70 max-w-2xl leading-relaxed">
-            Passionate about creating seamless user experiences. With strong foundation in Computer Science Engineering and expertise in web development, I bring ideas to life with clean code and beautiful design.
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Driven by innovation and passionate about solving real-world problems through technology
           </p>
         </div>
 
