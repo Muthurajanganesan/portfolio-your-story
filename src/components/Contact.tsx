@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, Linkedin, Github, MapPin } from "lucide-react";
+import { ContactModal } from "./ContactModal";
 
 const Contact = () => {
   const contactInfo = [
@@ -84,10 +85,12 @@ const Contact = () => {
             <p className="text-muted-foreground mb-6">
               Open to opportunities in software development, UI/UX design, and innovative tech projects
             </p>
-            <Button size="lg" className="gap-2">
-              <Mail className="w-5 h-5" />
-              Send Message
-            </Button>
+            <ContactModal>
+              <Button size="lg" className="gap-2">
+                <Mail className="w-5 h-5" />
+                Send Message
+              </Button>
+            </ContactModal>
           </div>
         </Card>
       </div>
