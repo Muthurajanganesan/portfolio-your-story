@@ -48,13 +48,13 @@ const Skills = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="flex flex-wrap justify-center gap-6">
           {skillCategories.map((category, index) => {
             const Icon = category.icon;
             return (
               <Card
                 key={index}
-                className="p-6 card-gradient shadow-card hover:shadow-hover transition-all duration-300"
+                className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] p-6 card-gradient shadow-card hover:shadow-hover transition-all duration-300"
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div className="p-2 rounded-lg bg-primary/10">

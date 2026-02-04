@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Github } from "lucide-react";
+import { Github } from "lucide-react";
 
 const Projects = () => {
   const projects = [
@@ -10,20 +10,37 @@ const Projects = () => {
       description: "An innovative learning application designed for deaf and dumb individuals, featuring sign language identification using machine learning algorithms. Includes modules for Parents, Teachers, and Students with comprehensive UI/UX design.",
       technologies: ["React.js", "Machine Learning", "Figma", "UI/UX"],
       highlights: ["Published paper in International Conference", "Successful Figma design implementation"],
-      color: "border-accent"
+      color: "border-accent",
+      github: "https://github.com/Muthurajanganesan/rps.game.git"
     },
     {
       title: "Smart Car Parking System",
       description: "Developed an intelligent parking management system with efficient vehicle entry and exit tracking. Demonstrated full-stack development capabilities and problem-solving skills in real-world scenarios.",
       technologies: ["Java", "Angular", "Database Management"],
       highlights: ["Full-stack implementation", "Real-time vehicle tracking"],
-      color: "border-primary"
+      github: "#"
+    },
+    {
+      title: "The Books World",
+      description: "Complete full-stack e-commerce platform for an online bookstore. Features user authentication, product catalog, shopping cart, and payment integration.",
+      technologies: ["React", "Spring Boot", "MySQL", "Java"],
+      highlights: ["Full-stack e-commerce", "Secure authentication", "Payment gateway ready"],
+      color: "border-accent",
+      github: "https://github.com/Muthurajanganesan/the-books-world.git"
+    },
+    {
+      title: "Todo List",
+      description: "A clean and efficient task management application to organize daily activities. Features intuitive task creation, completion tracking, and data persistence.",
+      technologies: ["React", "CSS", "Local Storage"],
+      highlights: ["Simple & Intuitive", "Data Persistence", "Responsive UI"],
+      color: "border-primary",
+      github: "https://github.com/Muthurajanganesan/Todolist.git"
     }
   ];
 
   return (
     <section id="projects" className="py-20 px-4">
-      <div className="container mx-auto max-w-6xl">
+      <div className="container mx-auto max-w-[1400px]">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Featured <span className="text-gradient">Projects</span>
@@ -33,17 +50,17 @@ const Projects = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {projects.map((project, index) => (
             <Card
               key={index}
-              className={`p-6 card-gradient shadow-card hover:shadow-hover transition-all duration-300 border-l-4 ${project.color}`}
+              className={`p-4 card-gradient shadow-card hover:shadow-hover transition-all duration-300 border-l-4 ${project.color}`}
             >
               <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
               <p className="text-foreground/80 mb-4 leading-relaxed">
                 {project.description}
               </p>
-              
+
               <div className="space-y-4">
                 <div>
                   <p className="text-sm font-semibold mb-2 text-muted-foreground">Technologies:</p>
@@ -70,14 +87,13 @@ const Projects = () => {
               </div>
 
               <div className="flex gap-3 mt-6">
-                <Button size="sm" variant="outline" className="gap-2">
-                  <Github className="w-4 h-4" />
-                  Code
-                </Button>
-                <Button size="sm" variant="outline" className="gap-2">
-                  <ExternalLink className="w-4 h-4" />
-                  Details
-                </Button>
+                <a href={project.github} target="_blank" rel="noopener noreferrer">
+                  <Button size="sm" variant="outline" className="gap-2">
+                    <Github className="w-4 h-4" />
+                    Code
+                  </Button>
+                </a>
+
               </div>
             </Card>
           ))}

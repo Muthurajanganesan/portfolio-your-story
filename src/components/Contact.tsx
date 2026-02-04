@@ -21,7 +21,7 @@ const Contact = () => {
       icon: Linkedin,
       label: "LinkedIn",
       value: "muthurajanganesan",
-      href: "https://www.linkedin.com/in/muthurajanganesan"
+      href: "https://www.linkedin.com/in/muthurajan-g-45500425a/"
     },
     {
       icon: Github,
@@ -33,7 +33,7 @@ const Contact = () => {
       icon: MapPin,
       label: "Location",
       value: "Knowledge Institute of Technology",
-      href: null
+      href: "https://kiot.ac.in/"
     }
   ];
 
