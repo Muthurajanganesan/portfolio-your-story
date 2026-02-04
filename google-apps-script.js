@@ -1,21 +1,44 @@
-// Copy this code into your Google Apps Script project (Extensions > Apps Script in Google Sheets)
+var sheetName = 'Sheet1'
+var scriptProp = PropertiesService.getScriptProperties()
+
+function intialSetup() {
+    var activeSpreadsheet = SpreadsheetApp.getActiveSpreadsheet()
+    scriptProp.setProperty('key', activeSpreadsheet.getId())
+}
 
 function doPost(e) {
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var lock = LockService.getScriptLock()
+    lock.tryLock(10000)
 
-    // Get parameters from the request
-    var data = e.parameter;
+    try {
+        var doc = SpreadsheetApp.openById(scriptProp.getProperty('key'))
+        var sheet = doc.getSheetByName(sheetName)
 
-    // Add a new row with timestamp and form data
-    sheet.appendRow([
-        new Date(),
-        data.name,
-        data.email,
-        data.phone,
-        data.address
-    ]);
+        var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0]
+        var nextRow = sheet.getLastRow() + 1
 
-    // Return a success JSON response
-    return ContentService.createTextOutput(JSON.stringify({ "result": "success" }))
-        .setMimeType(ContentService.MimeType.JSON);
+        var newRow = headers.map(function (header) {
+            if (header === 'timestamp') {
+                return new Date()
+            } else {
+                return e.parameter[header]
+            }
+        })
+
+        sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow])
+
+        return ContentService
+            .createTextOutput(JSON.stringify({ 'result': 'success', 'row': nextRow }))
+            .setMimeType(ContentService.MimeType.JSON)
+    }
+
+    catch (e) {
+        return ContentService
+            .createTextOutput(JSON.stringify({ 'result': 'error', 'error': e }))
+            .setMimeType(ContentService.MimeType.JSON)
+    }
+
+    finally {
+        lock.releaseLock()
+    }
 }

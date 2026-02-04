@@ -25,35 +25,45 @@ export function ContactModal({ children }: { children?: React.ReactNode }) {
     const [status, setStatus] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | React.ChangeEvent<HTMLTextAreaElement>>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        console.log("Form submission started");
         setLoading(true);
         setStatus("Sending...");
 
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwX4A8iv9g7eGpdVFTULfpQ7XnqAte619-GHKxooFLnGf-8LgptgwY8RInli6klvONt2g/exec';
-
-
+        // REPLACE THIS WITH YOUR NEW GOOGLE APPS SCRIPT WEB APP URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzLK9PvnDKihhMQaIZBV_CJD9dkqo-V-woAiKzKzbUE23xSo4x0o1m4mgBFVz3ALzNh/exec';
+        console.log("Using Script URL:", scriptURL);
 
         const form = new FormData();
+        // These keys must match the headers in your Google Sheet exactly!
+        form.append('timestamp', new Date().toISOString());
         form.append('name', formData.name);
         form.append('email', formData.email);
         form.append('phone', formData.phone);
         form.append('address', formData.address);
 
+        console.log("Form Data created:", Object.fromEntries(form));
+
         try {
+            console.log("Sending fetch request...");
             await fetch(scriptURL, { method: 'POST', body: form, mode: 'no-cors' });
+            console.log("Fetch request sent (no-cors mode)");
+
+            // Since we use no-cors, we can't read the response, but if it doesn't throw, we assume success.
             setStatus("Message sent successfully!");
             setFormData({ name: "", email: "", phone: "", address: "" });
             setTimeout(() => setOpen(false), 2000);
         } catch (error) {
-            console.error('Error!', error);
+            console.error('Submission Error:', error);
             setStatus("Failed to send message.");
         } finally {
             setLoading(false);
+            console.log("Form submission finished");
         }
     };
 
