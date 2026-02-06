@@ -2,8 +2,18 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const Projects = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 7000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const projects = [
     {
       title: "Gesture Learn",
@@ -51,52 +61,96 @@ const Projects = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {projects.map((project, index) => (
-            <Card
-              key={index}
-              className={`p-4 card-gradient shadow-card hover:shadow-hover transition-all duration-300 border-l-4 ${project.color}`}
-            >
-              <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
-              <p className="text-foreground/80 mb-4 leading-relaxed">
-                {project.description}
-              </p>
+          {loading
+            ? Array.from({ length: 4 }).map((_, index) => (
+              <Card
+                key={index}
+                className="p-4 card-gradient shadow-card h-full flex flex-col justify-between"
+              >
+                <div className="space-y-4">
+                  {/* Title Skeleton */}
+                  <div className="h-8 w-3/4 bg-gray-200 dark:bg-gray-700 rounded animate-shimmer"></div>
 
-              <div className="space-y-4">
-                <div>
-                  <p className="text-sm font-semibold mb-2 text-muted-foreground">Technologies:</p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, techIndex) => (
-                      <Badge key={techIndex} variant="outline">
-                        {tech}
-                      </Badge>
-                    ))}
+                  {/* Description Skeleton */}
+                  <div className="space-y-2">
+                    <div className="h-4 w-full bg-gray-200 dark:bg-gray-700 rounded animate-shimmer"></div>
+                    <div className="h-4 w-full bg-gray-200 dark:bg-gray-700 rounded animate-shimmer"></div>
+                    <div className="h-4 w-2/3 bg-gray-200 dark:bg-gray-700 rounded animate-shimmer"></div>
+                  </div>
+
+                  {/* Tech Badges Skeleton */}
+                  <div className="space-y-2">
+                    <div className="h-4 w-1/4 bg-gray-200 dark:bg-gray-700 rounded animate-shimmer"></div>
+                    <div className="flex gap-2">
+                      <div className="h-6 w-16 bg-gray-200 dark:bg-gray-700 rounded-full animate-shimmer"></div>
+                      <div className="h-6 w-20 bg-gray-200 dark:bg-gray-700 rounded-full animate-shimmer"></div>
+                      <div className="h-6 w-14 bg-gray-200 dark:bg-gray-700 rounded-full animate-shimmer"></div>
+                    </div>
+                  </div>
+
+                  {/* Highlights Skeleton */}
+                  <div className="space-y-2">
+                    <div className="h-4 w-1/4 bg-gray-200 dark:bg-gray-700 rounded animate-shimmer"></div>
+                    <div className="space-y-2">
+                      <div className="h-4 w-full bg-gray-200 dark:bg-gray-700 rounded animate-shimmer"></div>
+                      <div className="h-4 w-5/6 bg-gray-200 dark:bg-gray-700 rounded animate-shimmer"></div>
+                    </div>
                   </div>
                 </div>
 
-                <div>
-                  <p className="text-sm font-semibold mb-2 text-muted-foreground">Highlights:</p>
-                  <ul className="space-y-1">
-                    {project.highlights.map((highlight, highlightIndex) => (
-                      <li key={highlightIndex} className="text-sm text-foreground/80 flex items-start gap-2">
-                        <span className="text-accent mt-1">•</span>
-                        {highlight}
-                      </li>
-                    ))}
-                  </ul>
+                {/* Button Skeleton */}
+                <div className="mt-6">
+                  <div className="h-9 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-shimmer"></div>
                 </div>
-              </div>
+              </Card>
+            ))
+            : projects.map((project, index) => (
+              <Card
+                key={index}
+                className={`p-4 card-gradient shadow-card hover:shadow-hover transition-all duration-300 border-l-4 ${project.color} h-full flex flex-col justify-between`}
+              >
+                <div>
+                  <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
+                  <p className="text-foreground/80 mb-4 leading-relaxed">
+                    {project.description}
+                  </p>
 
-              <div className="flex gap-3 mt-6">
-                <a href={project.github} target="_blank" rel="noopener noreferrer">
-                  <Button size="sm" variant="outline" className="gap-2">
-                    <Github className="w-4 h-4" />
-                    Code
-                  </Button>
-                </a>
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-sm font-semibold mb-2 text-muted-foreground">Technologies:</p>
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.map((tech, techIndex) => (
+                          <Badge key={techIndex} variant="outline">
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
 
-              </div>
-            </Card>
-          ))}
+                    <div>
+                      <p className="text-sm font-semibold mb-2 text-muted-foreground">Highlights:</p>
+                      <ul className="space-y-1">
+                        {project.highlights.map((highlight, highlightIndex) => (
+                          <li key={highlightIndex} className="text-sm text-foreground/80 flex items-start gap-2">
+                            <span className="text-accent mt-1">•</span>
+                            {highlight}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex gap-3 mt-6">
+                  <a href={project.github} target="_blank" rel="noopener noreferrer">
+                    <Button size="sm" variant="outline" className="gap-2">
+                      <Github className="w-4 h-4" />
+                      Code
+                    </Button>
+                  </a>
+                </div>
+              </Card>
+            ))}
         </div>
       </div>
     </section>
